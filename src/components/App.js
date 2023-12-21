@@ -116,7 +116,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={"w-screen h-screen flex flex-col justify-center items-center bg-green-900"}>
-        <audio id="beep" src="https://www.myinstants.com/media/sounds/long-beep.mp3"></audio>
+        <audio id="beep" src="https://assets.mixkit.co/active_storage/sfx/1084/1084-preview.mp3"></audio>
         <div className="p-5 rounded-md shadow-md flex flex-col justify-center items-center bg-green-700">
           <div className="flex flex-row">
             <div className="p-2 flex flex-col">
