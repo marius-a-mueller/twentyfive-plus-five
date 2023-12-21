@@ -149,7 +149,6 @@ class App extends React.Component {
               callback={this.handleStartStop}
             />
             <Button id="reset" icon="fa-solid fa-arrow-rotate-left" callback={this.handleReset} />
-            <Button id="test" icon="fa-solid fa-circle" callback={this.test} />
           </div>
         </div>
       </div>
