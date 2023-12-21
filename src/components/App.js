@@ -1,5 +1,4 @@
 import React from "react";
-import { clickButtonsById, clickButtonsByIdWithDelay, getInputValue } from "../utils/element-utils";
 
 import Label from "./Label";
 import BigLabel from "./BigLabel";
@@ -37,15 +36,16 @@ class App extends React.Component {
     this.getTimeLeftAsString = this.getTimeLeftAsString.bind(this);
   }
 
-  async test() {
-    console.log("Testing:");
-    const target = document.getElementById("time-left");
-    const btn = document.getElementById("session-increment");
-    console.log(btn);
-    btn.click();
-    clickButtonsById(["session-increment"]);
-    await clickButtonsByIdWithDelay(Array(35).fill("session-increment", 3));
-    console.log(target);
+  async playAudio(ms) {
+    let audio = document.getElementById("beep");
+    audio.play();
+    await delay(2000);
+  }
+
+  pauseAudio() {
+    let audio = document.getElementById("beep");
+    audio.pause();
+    audio.load();
   }
 
   getTimeLeftAsString() {
@@ -65,8 +65,7 @@ class App extends React.Component {
     this.setState((state) => ({ timeLeft: state.timeLeft - 1 }));
     if (this.getTimeLeftAsString() === "00:00") {
       this.stopTimer();
-      await delay(2000);
-      document.getElementById("beep").play();
+      await this.playAudio(2000);
       if (this.state.timeState === TIME_STATES.session) {
         console.log(this.state);
         this.setState((state) => ({ timeLeft: toSeconds(state.break), timeState: TIME_STATES.break }));
@@ -92,6 +91,7 @@ class App extends React.Component {
   handleReset() {
     this.setState(INITIAL_STATE);
     this.stopTimer();
+    this.pauseAudio();
   }
 
   handleNumberChange(event) {
@@ -116,7 +116,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={"w-screen h-screen flex flex-col justify-center items-center bg-green-900"}>
-        <audio id="beep" src="https://www.myinstants.com/media/sounds/censor-beep-1.mp3"></audio>
+        <audio id="beep" src="https://www.myinstants.com/media/sounds/long-beep.mp3"></audio>
         <div className="p-5 rounded-md shadow-md flex flex-col justify-center items-center bg-green-700">
           <div className="flex flex-row">
             <div className="p-2 flex flex-col">
